@@ -1,0 +1,13 @@
+.DS_Store
+/data
+node_modules
+*.db.json
+.env
+/samples
+/samples-out
+/test-images
+/dist
+/build
+/__pycache__
+/tests
+/temp
