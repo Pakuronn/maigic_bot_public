@@ -1,41 +1,69 @@
 #!/bin/bash
+echo "[setup-vast-ai.sh] Started"
 
-ROOT=/workspace/stable-diffusion-webui
+ROOT=/stable-diffusion-webui
+#CONTROLNET_REPO=https://github.com/Mikubill/sd-webui-controlnet
+REMOVEBG_REPO=https://github.com/Pakuronn/sd-webui-bgremove
+# new controlnet:
+#CONTROLNET_COMMIT=7b707dc1f03c3070f8a506ff70a2b68173d57bb5
+CONTROLNET_MODEL=https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge.pth
+# old controlnet:
+#CONTROLNET_COMMIT=c9340671d6d59e5a79fc404f78f747f969f87374 
+#CONTROLNET_MODEL=https://huggingface.co/lllyasviel/ControlNet/resolve/main/models/control_sd15_hed.pth
+
+# update start script from docker image
+cd /
+rm start.sh
+wget -O start.sh https://raw.githubusercontent.com/Pakuronn/maigic_bot_public/master/start.sh
+chmod +x start.sh
+
 cd $ROOT || exit 1
 
 # Patch arguments
 sed -i 's/webui.sh -f"/webui.sh -f --api --api-auth pensipens:F743kFD234! --port 3000 --xformers --listen --enable-insecure-extension-access"/' ./relauncher.py
 
+mkdir -p /lora-models
+mkdir -p /hn-models
+
 # ControlNet WebUI extension
-[[ -d dir ]] || git clone https://github.com/Mikubill/sd-webui-controlnet extensions/sd-webui-controlnet
-cd extensions/sd-webui-controlnet && git checkout 7b707dc1f03c3070f8a506ff70a2b68173d57bb5
+#[[ -d dir ]] || git clone "$CONTROLNET_REPO"
+#cd extensions/sd-webui-controlnet && git checkout $CONTROLNET_COMMIT
+#cd $ROOT || exit 1
+#mkdir -p models/ControlNet
+
+# BgRemove extension
+echo "[setup-vast-ai.sh] Installing BgRemove extension..."
+cd extensions || exit 2
+[[ -d "sd-webui-bgremove" ]] || git clone "$REMOVEBG_REPO"
 cd $ROOT || exit 1
-mkdir -p models/ControlNet
 
+# DOWNLOAD MODELS:
 
-# MODELS
-
-# controlnet softedge
-cd extensions/sd-webui-controlnet/models || exit 2
-wget -nc https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge.pth
-cd $ROOT || exit 1
+echo "[setup-vast-ai.sh] Downloading models..."
 
 # deliberate v2
-cd models/Stable-diffusion || exit 3
-wget -nc -O deliberate_v2.safetensors https://civitai.com/models/4823/deliberate
+#cd models/Stable-diffusion || exit 3
+cd /sd-models || exit 3
+wget -nc -O deliberate_v2.safetensors https://civitai.com/api/download/models/15236
+cd $ROOT || exit 1
+
+# controlnet model
+# cd extensions/sd-webui-controlnet/models || exit 2
+cd /cn-models || exit 2
+wget -nc "$CONTROLNET_MODEL"
 cd $ROOT || exit 1
 
 # Lora для Noir
-cd models/Lora || exit 4
-wget -nc -O mo.safetensors https://disk.yandex.ru/d/HWRbQ4FFC5ayZQ
+cd lora-models || exit 4
+wget -nc -O mo.safetensors https://civitai.com/api/download/models/67892
 cd $ROOT || exit 1
 
 # Lora для Anime
-cd models/Lora || exit 5
-wget -nc -O satoshiUrushihara_urushisatoV15.safetensors https://disk.yandex.ru/d/bTQqkaeK4UE8-g
+cd lora-models || exit 5
+wget -nc -O satoshiUrushihara_urushisatoV15.safetensors https://civitai.com/api/download/models/24272
 cd $ROOT || exit 1
 
 # Hypernetwork для Anime
-cd models/hypernetworks || exit 6
-wget -nc -O incaseStyle_incaseAnythingV3.pt https://disk.yandex.ru/d/HS4llKPt14dpwQ
+cd hn-models || exit 6
+wget -nc -O incaseStyle_incaseAnythingV3.pt https://civitai.com/api/download/models/5938
 cd $ROOT || exit 1
