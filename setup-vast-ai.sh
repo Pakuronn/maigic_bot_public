@@ -63,6 +63,11 @@ cd /lora-models || exit 5
 wget -nc -O satoshiUrushihara_urushisatoV15.safetensors https://civitai.com/api/download/models/24272
 cd $SDROOT || exit 1
 
+# Lora для Barbie
+cd /lora-models || exit 5
+wget -nc -O https://maigic.ru/static/lora-models/barbie.safetensors
+cd $SDROOT || exit 1
+
 # Hypernetwork для Anime
 cd /hn-models || exit 6
 wget -nc -O incaseStyle_incaseAnythingV3.pt https://civitai.com/api/download/models/5938
