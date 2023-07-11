@@ -20,7 +20,7 @@ chmod +x start.sh
 cd $SDROOT || exit 1
 
 # Patch arguments
-sed -i 's/webui.sh -f"/webui.sh -f --api --api-auth pensipens:F743kFD234! --port 3000 --xformers --listen --enable-insecure-extension-access"/' ./relauncher.py
+sed -i 's/webui.sh -f"/webui.sh -f --api --api-auth pensipens:F743kFD234! --gradio-auth pensipens:F743kFD234! --port 3000 --xformers --listen --enable-insecure-extension-access"/' ./relauncher.py
 
 mkdir -p /lora-models
 mkdir -p /hn-models
@@ -65,7 +65,7 @@ cd $SDROOT || exit 1
 
 # Lora для Barbie
 cd /lora-models || exit 5
-wget -nc -O https://maigic.ru/static/lora-models/barbie.safetensors
+wget -nc https://maigic.ru/static/lora-models/barbie.safetensors
 cd $SDROOT || exit 1
 
 # Hypernetwork для Anime
