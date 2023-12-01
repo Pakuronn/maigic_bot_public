@@ -47,7 +47,8 @@ echo "[setup-vast-ai.sh] Downloading models..."
 # deliberate v2
 #cd models/Stable-diffusion || exit 3
 cd /sd-models || exit 3
-wget -nc -O deliberate_v2.safetensors https://civitai.com/api/download/models/15236
+#wget -nc -O deliberate_v2.safetensors https://civitai.com/api/download/models/15236
+wget -nc https://maigic.ru/static/sd-models/deliberate_v2.safetensors
 cd $SDROOT || exit 1
 
 # controlnet model
