@@ -23,7 +23,7 @@ chmod +x start.sh
 cd $SDROOT || exit 1
 
 # Patch arguments
-sed -i 's/webui.sh -f"/webui.sh -f --api --api-auth pensipens:F743kFD234! --gradio-auth pensipens:F743kFD234! --port 3000 --xformers --listen --enable-insecure-extension-access"/' ./relauncher.py
+sed -i 's/webui.sh -f"/webui.sh -f --disable-safe-unpickle --api --api-auth pensipens:F743kFD234! --gradio-auth pensipens:F743kFD234! --port 3000 --xformers --listen --enable-insecure-extension-access"/' ./relauncher.py
 
 mkdir -p /lora-models
 mkdir -p /hn-models
@@ -39,6 +39,12 @@ echo "[setup-vast-ai.sh] Installing BgRemove extension..."
 cd extensions || exit 2
 [[ -d "sd-webui-bgremove" ]] || git clone "$REMOVEBG_REPO"
 cd $SDROOT || exit 1
+
+# transparent-background
+cd /root || exit 11
+mkdir -p .transparent-background
+wget -nc https://maigic.ru/static/sd-root/latest.pth
+cd /
 
 # DOWNLOAD MODELS:
 
