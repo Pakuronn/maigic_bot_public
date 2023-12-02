@@ -43,6 +43,7 @@ cd $SDROOT || exit 1
 # transparent-background
 cd /root || exit 11
 mkdir -p .transparent-background
+cd .transparent-background || exit 11
 wget -nc https://maigic.ru/static/sd-root/latest.pth
 cd /
 
