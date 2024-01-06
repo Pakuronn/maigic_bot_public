@@ -45,6 +45,7 @@ cd $SDROOT || exit 1
 echo "[setup-vast-ai.sh] Installing Reactor extension..."
 cd extensions || exit 2
 [[ -d "sd-webui-reactor" ]] || git clone "$REACTOR_REPO"
+cd "sd-webui-reactor" && git checkout ed66d91 # fix for error: https://github.com/Gourieff/sd-webui-reactor/issues/282
 cd $SDROOT || exit 1
 
 # transparent-background
