@@ -7,6 +7,7 @@ touch ~/.no_auto_tmux
 SDROOT=/stable-diffusion-webui
 #CONTROLNET_REPO=https://github.com/Mikubill/sd-webui-controlnet
 REMOVEBG_REPO=https://github.com/Pakuronn/sd-webui-bgremove
+REACTOR_REPO=https://github.com/Gourieff/sd-webui-reactor
 # new controlnet:
 #CONTROLNET_COMMIT=7b707dc1f03c3070f8a506ff70a2b68173d57bb5
 CONTROLNET_MODEL=https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge.pth
@@ -38,6 +39,12 @@ mkdir -p /hn-models
 echo "[setup-vast-ai.sh] Installing BgRemove extension..."
 cd extensions || exit 2
 [[ -d "sd-webui-bgremove" ]] || git clone "$REMOVEBG_REPO"
+cd $SDROOT || exit 1
+
+# Reactor extension
+echo "[setup-vast-ai.sh] Installing Reactor extension..."
+cd extensions || exit 2
+[[ -d "sd-webui-reactor" ]] || git clone "$REACTOR_REPO"
 cd $SDROOT || exit 1
 
 # transparent-background
@@ -94,6 +101,15 @@ wget -nc -O SyFyEye1_v1.0.safetensors "https://civitai.com/api/download/models/4
 
 # Lora for pixar
 wget -nc -O pixarStyleModel_lora128.safetensors "https://civitai.com/api/download/models/20450?type=Model&format=SafeTensor"
+
+# Lora for simpsons
+wget -nc "https://maigic.ru/static/lora-models/The_Simpson_Style.safetensors"
+
+# Lora for newyear
+wget -nc "https://maigic.ru/static/lora-models/christmas-photo-v1.2.safetensors"
+
+# Lora for gta
+wget -nc "https://maigic.ru/static/lora-models/GTA_Style.safetensors"
 
 cd $SDROOT || exit 1
 
