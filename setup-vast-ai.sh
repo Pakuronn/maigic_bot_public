@@ -72,36 +72,40 @@ cd /cn-models || exit 2
 wget -nc "$CONTROLNET_MODEL"
 cd $SDROOT || exit 1
 
+### если opencv > 4.7 (при запуске webui выдается ошибка про Layer), то заменить модель:
+# cd /workspace/stable-diffusion-webui/models/opencv || exit 3
+# mv ./face_detection_yunet.onnx ./face_detection_yunet--old.onnx
+# wget -O face_detection_yunet.onnx https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx?download=
 
 ### LORA ###
 cd /lora-models || exit 4
 
 # Lora for Noir
-wget -nc -O mo.safetensors https://civitai.com/api/download/models/67892
+wget -nc "https://maigic.ru/static/lora-models/mo.safetensors"
 
 # Lora for Anime
-wget -nc -O satoshiUrushihara_urushisatoV15.safetensors https://civitai.com/api/download/models/24272
+wget -nc "https://maigic.ru/static/lora-models/satoshiUrushihara_urushisatoV15.safetensors"
 
 # Lora for Barbie
-wget -nc https://maigic.ru/static/lora-models/barbie.safetensors
+wget -nc "https://maigic.ru/static/lora-models/barbie.safetensors"
 
 # Lora for 8bit
-wget -nc -O "64x64v2-10.safetensors" "https://civitai.com/api/download/models/210996?type=Model&format=SafeTensor"
+wget -nc "https://maigic.ru/static/lora-models/64x64v2-10.safetensors"
 
 # Lora for mexico
-wget -nc -O CatrinaMakeUp_Concept-10.safetensors "https://civitai.com/api/download/models/62492?type=Model&format=SafeTensor"
+wget -nc "https://maigic.ru/static/lora-models/CatrinaMakeUp_Concept-10.safetensors"
 
 # Lora for titans
-wget -nc -O AoTStyle.safetensors "https://civitai.com/api/download/models/18647?type=Model&format=SafeTensor&size=full&fp=fp16"
+wget -nc "https://maigic.ru/static/lora-models/AoTStyle.safetensors"
 
 # Lora for gothic
-wget -nc -O ARWBedroomGothic.safetensors https://civitai.com/api/download/models/115065
+wget -nc "https://maigic.ru/static/lora-models/ARWBedroomGothic.safetensors"
 
 # Lora for cosmos
-wget -nc -O SyFyEye1_v1.0.safetensors "https://civitai.com/api/download/models/49302?type=Model&format=SafeTensor"
+wget -nc "https://maigic.ru/static/lora-models/SyFyEye1_v1.011111.safetensors"
 
 # Lora for pixar
-wget -nc -O pixarStyleModel_lora128.safetensors "https://civitai.com/api/download/models/20450?type=Model&format=SafeTensor"
+wget -nc "https://maigic.ru/static/lora-models/pixarStyleModel_lora128.safetensors"
 
 # Lora for simpsons
 wget -nc "https://maigic.ru/static/lora-models/The_Simpson_Style.safetensors"
